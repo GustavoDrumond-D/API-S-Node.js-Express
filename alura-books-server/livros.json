@@ -1,0 +1,82 @@
+[
+    {
+        "id": "1",
+        "nome": "Entendendo Algoritmos"
+    },
+    {
+        "id": "2",
+        "nome": "Cangaceiro Javascript"
+    },
+    {
+        "id": "3",
+        "nome": "Guia Básico de C#"
+    },
+    {
+        "id": "4",
+        "nome": "Guia Básico de JavaScript"
+    },
+    {
+        "id": "5",
+        "nome": "Código Limpo"
+    },
+    {
+        "id": "6",
+        "nome": "JavaScript para Iniciantes"
+    },
+    {
+        "id": "7",
+        "nome": "Conhecendo o Python"
+    },
+    {
+        "id": "8",
+        "nome": "Imersão Alura"
+    },
+    {
+        "id": "9",
+        "nome": "Introdução ao Node.js"
+    },
+    {
+        "id": "10",
+        "nome": "Design Patterns em JavaScript"
+    },
+    {
+        "id": "11",
+        "nome": "Desvendando a Programação Funcional"
+    },
+    {
+        "id": "12",
+        "nome": "React para Iniciantes"
+    },
+    {
+        "id": "13",
+        "nome": "Lógica de Programação e Algoritmos"
+    },
+    {
+        "id": "14",
+        "nome": "Desenvolvimento Web com React e Redux"
+    },
+    {
+        "id": "15",
+        "nome": "Introdução ao TypeScript"
+    },
+    {
+        "id": "16",
+        "nome": "JavaScript: O Guia Definitivo"
+    },
+    {
+        "id": "17",
+        "nome": "Estruturas de Dados em JavaScript"
+    },
+    {
+        "id": "18",
+        "nome": "MongoDB para Desenvolvedores"
+    },
+    {
+        "id": "19",
+        "nome": "Desenvolvimento Ágil com Scrum"
+    },
+    {
+        "id": "20",
+        "nome": "Git e GitHub para Iniciantes"
+    }
+]
