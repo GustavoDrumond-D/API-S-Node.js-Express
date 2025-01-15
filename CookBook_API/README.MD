@@ -48,8 +48,7 @@ A **CookBook API** é uma aplicação desenvolvida em Node.js com Express que pe
      "dev": "nodemon server.js"
      ```
 
-3. Executando o projeto
-
+3. Executando o projeto:
   Execute o projeto com o seguinte comando
   ```bash
   npm run dev
