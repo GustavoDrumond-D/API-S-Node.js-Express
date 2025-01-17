@@ -8,3 +8,6 @@ Repositório com projetos em **Node.js** e **Express**, focados no desenvolvimen
 
 2. **Instale o Nodemon:**
     **```npm install nodemon``` na pasta desejada.**
+
+3. **Instale o Express:**
+    **```npm install express``` na pasta desejada.**
