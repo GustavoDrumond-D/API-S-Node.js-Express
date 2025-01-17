@@ -41,4 +41,12 @@ app.put('/receitas/:id', (req, res) => {
     res.status(200).json("receita atualizada com sucesso")
 })
 
+app.delete('/receitas/:id', (req, res) => {
+    const receita = receitas.findIndex(receita => {
+        return receita.id == Number(req.params.id)
+    })
+    receitas.splice(receita, 1)
+    res.status(200).json("receita deletada com sucesso")
+})
+
 export default app;
