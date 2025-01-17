@@ -41,4 +41,12 @@ app.put('/livros/:id', (req, res) => {
     res.status(201).json("livro atualizado com sucesso")
 })
 
+app.delete('/livros/:id', (req, res) => {
+    const livro = livros.findIndex(livro => {
+        return livro.id === Number(req.params.id)
+    })
+    livros.splice(livro, 1)
+    res.status(201).json("livro deletado com sucesso")
+})
+
 export default app;
