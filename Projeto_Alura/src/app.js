@@ -5,11 +5,11 @@ app.use(express.json());
 const livros = [
     {
         id: 1,
-        título: "O Senhor dos Anéis"
+        titulo: "O Senhor dos Anéis"
     },
     {
         id: 2,
-        título: "O Hobbit"
+        titulo: "O Hobbit"
     }
 ];
 
@@ -21,9 +21,24 @@ app.get('/livros', (req, res) => {
     res.status(200).json(livros)
 })
 
+app.get('/livros/:id', (req, res) => {
+    const livro = livros.findIndex(livro => {
+        return livro.id === Number(req.params.id)
+    })
+    res.status(200).json(livros[livro])
+})
+
 app.post('/livros', (req, res) => {
     livros.push(req.body)
     res.status(201).json("livro criado com sucesso")
+})
+
+app.put('/livros/:id', (req, res) => {
+    const livro = livros.findIndex(livro => {
+        return livro.id === Number(req.params.id)
+    })
+    livros[livro].titulo = req.body.titulo
+    res.status(201).json("livro atualizado com sucesso")
 })
 
 export default app;
