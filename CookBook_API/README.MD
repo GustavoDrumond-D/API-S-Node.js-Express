@@ -1,7 +1,3 @@
-A maior parte do texto está correta, mas há alguns pequenos ajustes que podem ser feitos para melhorar a clareza e a consistência. Aqui está a versão revisada:
-
----
-
 # CookBook API
 
 A **CookBook API** é uma aplicação desenvolvida em Node.js com Express que permite gerenciar receitas culinárias. O objetivo do projeto é fornecer uma API REST para criar, visualizar, atualizar e excluir receitas, além de oferecer funcionalidades como categorias e favoritos.
@@ -46,6 +42,18 @@ A **CookBook API** é uma aplicação desenvolvida em Node.js com Express que pe
    - Adicione ao arquivo `package.json`, na seção de scripts, o seguinte código para facilitar o desenvolvimento:
      ```json
      "dev": "nodemon server.js"
+     ```
+   - **MongoDB**: Instale o mongodb com o comando:
+     ```bash
+     npm install mongodb
+     ```
+   - **Mongoose**: Instale o mongoose com o comando:
+     ```bash
+     npm install mongoose
+     ```
+   - **dotenv**: Instale o dotenv com o comando:
+     ```bash
+     npm install dotenv
      ```
 
 3. Executando o projeto:
