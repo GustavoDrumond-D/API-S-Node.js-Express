@@ -11,3 +11,12 @@ Repositório com projetos em **Node.js** e **Express**, focados no desenvolvimen
 
 3. **Instale o Express:**
     **```npm install express``` na pasta desejada.**
+
+4. **Instale o MongoDB:**
+    **```npm install mongodb``` na pasta desejada**
+
+5. **Instale o Mongoose:**
+    **```npm install mongoose``` na pasta desejada**
+
+6. **Instale o dotenv:**
+    **```npm install dotenv``` na pasta desejada**
