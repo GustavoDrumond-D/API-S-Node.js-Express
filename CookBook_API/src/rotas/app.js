@@ -1,24 +1,26 @@
 import express from "express";
+import dbConnect from "../config/dbConnect.js";
+import receita from "../models/Receita.js";
+
+const conexao = await dbConnect();
+
+conexao.on('error', (erro) => {
+    console.log("erro na conexao: ", erro)
+});
+conexao.once('open', () => {
+    console.log("conexao aberta com sucesso")
+})
+
 const app = express();
 app.use(express.json());
-
-const receitas = [
-    {
-        id: 1,
-        titulo: "Receita 1"
-    },
-    {
-        id: 2,
-        titulo: "Receita 2"
-    }
-];
 
 app.get('/', (req, res) => {
     res.status(200).send('API CookBook')
 })
 
-app.get('/receitas', (req, res) => {
-    res.status(200).send(receitas)
+app.get('/receitas', async(req, res) => {
+    const listarReceitas = await receita.find({});
+    res.status(200).send(listarReceitas)
 })
 
 app.get('/receitas/:id', (req, res) => {
