@@ -1,5 +1,5 @@
 import "dotenv/config";
-import app from "./src/rotas/app.js";
+import app from "./src/app.js";
 
 const porta = 3000
 
