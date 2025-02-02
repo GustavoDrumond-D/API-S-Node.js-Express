@@ -9,7 +9,7 @@ class AutorController {
       res.status(200).json(autoresResultado);
       
     } catch (erro) {
-      res.status(500).json({ message: "Erro interno no servidor", error: erro });
+      res.status(500).json({ message: `${erro.message} - Erro interno no servidor`});
     }
   };
 
