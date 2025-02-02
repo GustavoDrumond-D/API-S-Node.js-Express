@@ -30,7 +30,6 @@ class AutorController {
     }
   };
 
-
   static cadastrarAutor = async (req, res, next) => {
     try {
       let autor = new autores(req.body);
@@ -42,7 +41,6 @@ class AutorController {
       next(erro);
     }
   };
-
 
   static atualizarAutor = async (req, res, next) => {
     try {
@@ -67,7 +65,6 @@ class AutorController {
       next(erro);
     }
   };
-
 
 }
 
