@@ -7,63 +7,67 @@ class AutorController {
       const autoresResultado = await autores.find();
 
       res.status(200).json(autoresResultado);
-      
+
     } catch (erro) {
-      res.status(500).json({ message: `${erro.message} - Erro interno no servidor`});
+      res.status(500).json({ message: `${erro.message} - Erro interno no servidor` });
     }
   };
 
-  static listarAutorPorId = async (req, res) => {
-    
+  static listarAutorPorId = async (req, res, next) => {
+
     try {
       const id = req.params.id;
-  
+
       const autorResultado = await autores.findById(id);
-  
-      res.status(200).send(autorResultado);
+
+      if (autorResultado !== null) {
+        res.status(200).send(autorResultado);
+      } else {
+        res.status(404).send({ message: "Id do Autor não localizado." });
+      }
     } catch (erro) {
-      res.status(400).send({message: `${erro.message} - Id do Autor não localizado.`});
+      next(erro);
     }
   };
-  
-  
-  static cadastrarAutor = async (req, res) => {
+
+
+  static cadastrarAutor = async (req, res, next) => {
     try {
       let autor = new autores(req.body);
-  
+
       const autorResultado = await autor.save();
-  
+
       res.status(201).send(autorResultado.toJSON());
     } catch (erro) {
-      res.status(500).send({message: `${erro.message} - falha ao cadastrar Autor.`});
+      next(erro);
     }
   };
-  
 
-  static atualizarAutor = async (req, res) => {
+
+  static atualizarAutor = async (req, res, next) => {
     try {
       const id = req.params.id;
-  
-      await autores.findByIdAndUpdate(id, {$set: req.body});
-  
-      res.status(200).send({message: "Autor atualizado com sucesso"});
+
+      await autores.findByIdAndUpdate(id, { $set: req.body });
+
+      res.status(200).send({ message: "Autor atualizado com sucesso" });
     } catch (erro) {
-      res.status(500).send({message: erro.message});
+      next(erro);
     }
   };
-  
-  static excluirAutor = async (req, res) => {
+
+  static excluirAutor = async (req, res, next) => {
     try {
       const id = req.params.id;
-  
+
       await autores.findByIdAndDelete(id);
-  
-      res.status(200).send({message: "Autor removido com sucesso"});
+
+      res.status(200).send({ message: "Autor removido com sucesso" });
     } catch (erro) {
-      res.status(500).send({message: erro.message});
+      next(erro);
     }
   };
-  
+
 
 }
 
