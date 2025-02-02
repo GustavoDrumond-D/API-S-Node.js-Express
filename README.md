@@ -20,3 +20,6 @@ Repositório com projetos em **Node.js** e **Express**, focados no desenvolvimen
 
 6. **Instale o dotenv:**
     **```npm install dotenv``` na pasta desejada**
+
+7. **Instale o Linter:**
+    **```npm init @eslint/config``` na pasta desejada**
