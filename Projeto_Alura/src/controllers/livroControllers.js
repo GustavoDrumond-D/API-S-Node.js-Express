@@ -82,6 +82,6 @@ class LivroControllers {
             })
         }
     }
-};
+}
 
 export default LivroControllers

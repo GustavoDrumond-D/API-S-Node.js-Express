@@ -65,6 +65,6 @@ class AutorControllers {
             })
         }
     }
-};
+}
 
 export default AutorControllers;
