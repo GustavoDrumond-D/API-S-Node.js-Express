@@ -1,5 +1,5 @@
 import NaoEncontrado from "../erros/naoEncontrado.js";
-import {livros} from "../models/index.js";
+import {autores, livros} from "../models/index.js";
 
 class LivroController {
 
@@ -79,7 +79,7 @@ class LivroController {
 
   static listarLivroPorFiltro = async (req, res, next) => {
     try {
-      const { editora, titulo, numeroPaginasMax, numeroPaginasMin } = req.query;
+      const { editora, titulo, numeroPaginasMax, numeroPaginasMin, nomeAutor } = req.query;
 
       // const regex = new RegExp(titulo, "i");
 
@@ -95,7 +95,17 @@ class LivroController {
       if (numeroPaginasMin) busca.numeroPaginas.$gte = numeroPaginasMin;
       if (numeroPaginasMax) busca.numeroPaginas.$lte = numeroPaginasMax;
 
-      const livrosResultado = await livros.find(busca);
+      if (nomeAutor) {
+        const autor = await autores.findOne({
+          nome: nomeAutor
+        });
+
+        const autorId = autor._id;
+
+        busca.autor = autorId;
+      }
+
+      const livrosResultado = await livros.find(busca).populate("autor");
 
       res.status(200).send(livrosResultado);
     } catch (erro) {
