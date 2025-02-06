@@ -4,13 +4,14 @@ import {autores} from "../models/index.js";
 class AutorController {
 
   // Listar todos os autores
-  static listarAutores = async (req, res) => {
+  static listarAutores = async (req, res, next) => {
     try {
       // autores.find() retorna uma promise
-      const autoresResultado = await autores.find();
+      const autoresResultado = autores.find();
 
-      res.status(200).json(autoresResultado);
+      req.resultado = autoresResultado;
 
+      next();
     } catch (erro) {
       res.status(500).json({ message: `${erro.message} - Erro interno no servidor` });
     }
