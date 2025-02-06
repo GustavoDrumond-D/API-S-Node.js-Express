@@ -1,22 +1,40 @@
 import NaoEncontrado from "../erros/naoEncontrado.js";
 import {autores, livros} from "../models/index.js";
+import requisicaoIncorreta from "../erros/requisicaoIncorreta.js";
 
 class LivroController {
 
+  // listarLivros vai retornar todos os livros
   static listarLivros = async (req, res, next) => {    
     try {
-      const livrosResultado = await livros.find()
-        .populate("autor")
-        .exec();
+      let { limite = 5, pagina = 1} = req.query;
 
-      res.status(200).json(livrosResultado);
+      limite = parseInt(limite);
+      pagina = parseInt(pagina);
+
+      if (limite > 0 && pagina > 0){
+        const livrosResultado = await livros.find()
+        //skip vai pular os primeiros 5 registros
+          .skip((pagina - 1) * limite)
+        //limit vai limitar a quantidade de registros
+          .limit(limite)
+        //populate vai trazer os dados do autor
+          .populate("autor")
+        //exec vai executar a consulta
+          .exec();
+        res.status(200).json(livrosResultado);
+      } else {
+        next(new requisicaoIncorreta());
+      }
     } catch (erro) {
       next(erro);
     }
   };
 
+  // listarLivroPorId vai retornar um livro especifico
   static listarLivroPorId = async (req, res, next) => {
     try {
+      //params vai pegar os paramentros da rota
       const id = req.params.id;
 
       const livroResultados = await livros.findById(id)
@@ -33,10 +51,13 @@ class LivroController {
     }
   };
 
+  // cadastrarLivro vai cadastrar um livro
   static cadastrarLivro = async (req, res, next) => {
     try {
+      //body vai pegar o corpo da requisicao
       let livro = new livros(req.body);
 
+      //save vai salvar o livro no banco
       const livroResultado = await livro.save();
 
       res.status(201).send(livroResultado.toJSON());
@@ -45,10 +66,12 @@ class LivroController {
     }
   };
 
+  // atualizarLivro vai atualizar um livro
   static atualizarLivro = async (req, res, next) => {
     try {
       const id = req.params.id;
 
+      //findByIdAndUpdate vai atualizar o livro
       const livroResultado = await livros.findByIdAndUpdate(id, { $set: req.body });
 
       if (livroResultado !== null){
@@ -61,10 +84,12 @@ class LivroController {
     }
   };
 
+  // excluirLivro vai excluir um livro
   static excluirLivro = async (req, res, next) => {
     try {
       const id = req.params.id;
 
+      //findByIdAndDelete vai excluir o livro
       const livroResultado = await livros.findByIdAndDelete(id);
 
       if(livroResultado !== null){
