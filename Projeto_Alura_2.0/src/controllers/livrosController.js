@@ -81,33 +81,33 @@ class LivroController {
     try {
       const { editora, titulo, numeroPaginasMax, numeroPaginasMin, nomeAutor } = req.query;
 
-      // const regex = new RegExp(titulo, "i");
-
-      const busca = {};
+      let busca = {};
 
       if (editora) busca.editora = editora;
       if (titulo) busca.titulo = { $regex: titulo, $options: "i"};
-      // if (titulo) busca.titulo = regex;
-
-
-      if(numeroPaginasMin || numeroPaginasMax ) busca.numeroPaginas = {};
-
+      if (numeroPaginasMin || numeroPaginasMax ) busca.numeroPaginas = {};
       if (numeroPaginasMin) busca.numeroPaginas.$gte = numeroPaginasMin;
       if (numeroPaginasMax) busca.numeroPaginas.$lte = numeroPaginasMax;
-
       if (nomeAutor) {
         const autor = await autores.findOne({
           nome: nomeAutor
         });
+        if (autor !== null) {
+          const autorId = autor._id;
 
-        const autorId = autor._id;
-
-        busca.autor = autorId;
+          busca.autor = autorId;
+        } else {
+          busca = null;
+        }
       }
 
-      const livrosResultado = await livros.find(busca).populate("autor");
+      if (busca !== null) {
+        const livrosResultado = await livros.find(busca).populate("autor");
+        res.status(200).send(livrosResultado);
+      } else {
+        res.status(200).send([]);
+      }
 
-      res.status(200).send(livrosResultado);
     } catch (erro) {
       next(erro);
     }
