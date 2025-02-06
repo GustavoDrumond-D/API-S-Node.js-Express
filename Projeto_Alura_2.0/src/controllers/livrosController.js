@@ -7,13 +7,17 @@ class LivroController {
   // listarLivros vai retornar todos os livros
   static listarLivros = async (req, res, next) => {    
     try {
-      let { limite = 5, pagina = 1} = req.query;
+      let { limite = 5, pagina = 1, ordenacao = "_id:-1"} = req.query;
 
+      let [campoOrdenacao, ordem] = ordenacao.split(":");
       limite = parseInt(limite);
       pagina = parseInt(pagina);
+      ordem = parseInt(ordem);
 
       if (limite > 0 && pagina > 0){
         const livrosResultado = await livros.find()
+        //sort vai ordenar os registros
+          .sort({[campoOrdenacao]: ordem})
         //skip vai pular os primeiros 5 registros
           .skip((pagina - 1) * limite)
         //limit vai limitar a quantidade de registros
@@ -102,17 +106,25 @@ class LivroController {
     }
   };
 
+  // listarLivroPorFiltro vai listar livros por filtro
   static listarLivroPorFiltro = async (req, res, next) => {
     try {
+      //query vai pegar os paramentros da rota
       const { editora, titulo, numeroPaginasMax, numeroPaginasMin, nomeAutor } = req.query;
 
       let busca = {};
 
+      //se o valor da propriedade editora existir, vai ser adicionado ao objeto busca
       if (editora) busca.editora = editora;
+      //se o valor da propriedade titulo existir, vai ser adicionado ao objeto busca
       if (titulo) busca.titulo = { $regex: titulo, $options: "i"};
+      //se o valor da propriedade numeroPaginasMax existir, vai ser adicionado ao objeto busca
       if (numeroPaginasMin || numeroPaginasMax ) busca.numeroPaginas = {};
+      //se o valor da propriedade numeroPaginasMin existir, vai ser adicionado ao objeto busca
       if (numeroPaginasMin) busca.numeroPaginas.$gte = numeroPaginasMin;
+      //se o valor da propriedade numeroPaginasMax existir, vai ser adicionado ao objeto busca
       if (numeroPaginasMax) busca.numeroPaginas.$lte = numeroPaginasMax;
+      //se o valor da propriedade nomeAutor existir, vai ser adicionado ao objeto busca
       if (nomeAutor) {
         const autor = await autores.findOne({
           nome: nomeAutor
@@ -126,6 +138,8 @@ class LivroController {
         }
       }
 
+      //find vai buscar os livros
+      //Caso a busca seja nula, vai ser retornado um array vazio
       if (busca !== null) {
         const livrosResultado = await livros.find(busca).populate("autor");
         res.status(200).send(livrosResultado);
